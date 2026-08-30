@@ -53,7 +53,7 @@ export default async function ProgramDetailPage({
     <>
       <PageHero eyebrow={DOMAIN_LABEL[program.domain]} title={program.title} lede={program.summary}>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <Button asChild size="lg">
+          <Button asChild size="lg" className="max-sm:w-full">
             <Link href={`/apply/${program.slug}`}>
               Apply — free
               <ArrowRight aria-hidden className="size-4" />

@@ -39,12 +39,12 @@ export function Hero() {
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Magnetic>
-                <Button asChild size="lg">
+              <Magnetic className="max-sm:w-full">
+                <Button asChild size="lg" className="max-sm:w-full">
                   <Link href="/programs">Browse programs</Link>
                 </Button>
               </Magnetic>
-              <Button asChild variant="secondary" size="lg">
+              <Button asChild variant="secondary" size="lg" className="max-sm:w-full">
                 <Link href="/how-it-works">How it works</Link>
               </Button>
             </div>

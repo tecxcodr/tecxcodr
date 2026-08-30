@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { EASE, motionEnabled } from '@/lib/motion/config'
 import { loadGsap } from '@/lib/motion/gsap'
+import { cn } from '@/lib/utils/cn'
 
 /**
  * Subtle magnetic pull toward the cursor. Capped at 8px — enough to feel
@@ -68,8 +69,12 @@ export function Magnetic({
     }
   }, [strength])
 
+  // inline-flex rather than inline-block so the wrapper never becomes a
+  // silent width boundary: as a flex item it stretches, and its child button
+  // stretches with it. Pass `max-sm:w-full` to make a magnetic button
+  // full-width on mobile.
   return (
-    <span ref={ref} className={className} style={{ display: 'inline-block' }}>
+    <span ref={ref} className={cn('inline-flex', className)}>
       {children}
     </span>
   )

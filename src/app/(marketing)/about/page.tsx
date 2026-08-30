@@ -112,10 +112,10 @@ export default function AboutPage() {
         </div>
 
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-          <Button asChild size="lg">
+          <Button asChild size="lg" className="max-sm:w-full">
             <Link href="/programs">Browse programs</Link>
           </Button>
-          <Button asChild variant="secondary" size="lg">
+          <Button asChild variant="secondary" size="lg" className="max-sm:w-full">
             <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
           </Button>
         </div>

@@ -27,7 +27,7 @@ export function Certificate() {
           />
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button asChild variant="secondary">
+            <Button asChild variant="secondary" className="max-sm:w-full">
               <Link href={`/verify/${SAMPLE_CODE}`}>See a live example</Link>
             </Button>
           </div>

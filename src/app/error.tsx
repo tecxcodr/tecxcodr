@@ -35,8 +35,10 @@ export default function GlobalError({
         </p>
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Button onClick={reset}>Try again</Button>
-          <Button asChild variant="secondary">
+          <Button onClick={reset} className="max-sm:w-full">
+            Try again
+          </Button>
+          <Button asChild variant="secondary" className="max-sm:w-full">
             <Link href="/">Go home</Link>
           </Button>
         </div>

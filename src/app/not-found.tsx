@@ -21,10 +21,10 @@ export default function NotFound() {
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button asChild>
+            <Button asChild className="max-sm:w-full">
               <Link href="/">Go home</Link>
             </Button>
-            <Button asChild variant="secondary">
+            <Button asChild variant="secondary" className="max-sm:w-full">
               <Link href="/programs">Browse programs</Link>
             </Button>
           </div>

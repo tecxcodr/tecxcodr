@@ -56,7 +56,7 @@ export default function VerifyIndexPage() {
             )}
           </Field>
 
-          <Button type="submit" size="lg" className="sm:self-start">
+          <Button type="submit" size="lg" className="max-sm:w-full sm:self-start">
             <Search aria-hidden className="size-4" />
             Verify
           </Button>
