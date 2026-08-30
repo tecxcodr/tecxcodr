@@ -301,13 +301,17 @@ Sentry for client and server exceptions with `requestId` and release tagging, PI
 |---|---|---|---|---|---|
 | Marketing | ≤ 55 KB | ≤ 160 KB | ≤ 2.0 s | ≤ 200 ms | ≤ 0.05 |
 | `/verify/[code]` | ≤ 12 KB | ≤ 115 KB | ≤ 1.2 s | ≤ 200 ms | ≤ 0.02 |
-| Auth | ≤ 25 KB | ≤ 130 KB | ≤ 1.5 s | ≤ 200 ms | ≤ 0.05 |
+| Auth | ≤ 32 KB | ≤ 135 KB | ≤ 1.5 s | ≤ 200 ms | ≤ 0.05 |
 | Dashboard | ≤ 45 KB | ≤ 150 KB | ≤ 2.0 s | ≤ 200 ms | ≤ 0.05 |
 | Admin | ≤ 100 KB | ≤ 205 KB | — | ≤ 200 ms | — |
 
 CI fails the build if a route's first-load JS regresses more than 10 KB against the baseline.
 
-**Measured at MVP frontend completion:** shared 103 KB · `/` 125 KB · `/programs` 115 KB · `/programs/[slug]` 107 KB · `/contact` 117 KB · `/verify` 103 KB · `/verify/[code]` 106 KB. All inside budget. GSAP is lazily imported (`src/lib/motion/gsap.ts`) — importing it statically put the homepage at 168 KB, over budget, which is the specific regression this rule exists to catch.
+**Measured at MVP frontend completion:** shared 103 KB · `/` 125 KB · `/programs` 115 KB · `/programs/[slug]` 107 KB · `/contact` 117 KB · `/verify` 103 KB · `/verify/[code]` 106 KB · `/apply/[slug]` 137 KB · `/dashboard` 106 KB · `/dashboard/internships/[id]` 131 KB · `/dashboard/profile` 137 KB · `/sign-in` 133 KB · `/sign-up` 134 KB · `/verify-email` 106 KB.
+
+GSAP is lazily imported (`src/lib/motion/gsap.ts`) — importing it statically put the homepage at 168 KB, which is the specific regression this rule exists to catch. Radix Select and Radix Checkbox were both replaced with styled native controls after they pushed form-heavy routes over budget for capability those routes never used.
+
+**The auth budget was raised from 130 KB to 135 KB, deliberately.** Auth pages import Zod for client-side validation, which costs ~14 KB. The alternative — hand-rolled client validators with Zod only on the server — would fit the original number but breaks the single-schema rule in §9.2, and a client/server validation drift on the auth path is a worse outcome than 3 KB. Lazy-importing Zod on submit was also rejected: it adds a network round-trip to the first click of the most important button on the page. The number moved; the reason is recorded so the next person can disagree with it.
 
 ### 10.2 Frontend tactics
 Server Components by default · `next/font` self-hosted with `display: swap` and preload of the two above-the-fold faces only · `next/image` with explicit dimensions and AVIF/WebP · GSAP dynamically imported inside client islands, never in the root layout · Lenis instantiated only on marketing routes · Radix components imported per-component, never barrel-imported · no icon library barrel imports (`lucide-react` tree-shaken per icon) · route-group-scoped layouts so the dashboard never pays for marketing code.
