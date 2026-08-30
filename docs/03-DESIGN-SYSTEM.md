@@ -297,7 +297,7 @@ Focus: border → `--fg`, plus the global ring.
 Error: border → `--destructive`, message below in `--destructive` prefixed with a 14px alert icon, `aria-invalid="true"`, `aria-describedby` pointing at the message.
 Disabled: `--bg-subtle` background, `--fg-subtle` text.
 Textarea: `min-height: 120px`, `resize: vertical` only.
-Select: Radix Select, never a native `<select>` (unstyleable across the two themes).
+Select: **native `<select>`, styled** (`appearance-none` + our own chevron). This reverses the original "never a native select" rule, for two measured reasons: (1) `styles/tokens.css` sets `color-scheme: dark|light` per theme, so modern browsers already draw the native popup in the matching scheme — the "white system dropdown on a near-black page" problem does not occur; (2) Radix Select cost ~26 kB on `/apply/[slug]` and `/dashboard/profile`, pushing both past their budgets in `02-TRD` §10.1. Native also beats a custom listbox on mobile (OS wheel picker) and brings keyboard, type-ahead and screen-reader support for free. Reach for Radix Select only if a control needs search, multi-select, or rich option content — none currently do.
 Checkbox/radio: 18×18 box with a 44×44 hit area via label padding.
 
 Inputs are `font-size: 16px` on mobile without exception (iOS zoom).
